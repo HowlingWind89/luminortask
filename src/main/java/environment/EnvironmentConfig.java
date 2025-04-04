@@ -11,6 +11,7 @@ public class EnvironmentConfig {
         WebDriverManager.chromedriver().setup();
         System.setProperty("selenide.browser", "Chrome");
 
+        Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
         open(WebURL.IMDB);
     }

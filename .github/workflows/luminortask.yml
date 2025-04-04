@@ -1,0 +1,53 @@
+name: Luminor testSuite
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  chrome_build:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+
+      - name: Gradle clean
+        run: |
+          gradle clean
+
+      - name: TestSuite execution
+        run: |
+          gradle testSuite
+
+      - name: Generate allure reports
+        if: success() || failure()
+        run: |
+          gradle allureReport
+
+      - name: Add allure report
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Allure reports Luminor
+          path: build/reports/allure-report/allureReport
+
+      - name: Add cucumber report
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Cucumber reports Luminor
+          path: target/cucumber-report.html
