@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id "io.qameta.allure" version "2.11.2"
+}
+
+allure {
+    version.set("2.26.0")
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'com.codeborne', name: 'selenide', version: '7.8.0'
+    implementation group: 'io.cucumber', name: 'cucumber-core', version: '7.21.1'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '6.0.1'
+
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.21.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '7.21.1'
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.17'
+    testImplementation group: 'io.qameta.allure', name: 'allure-commandline', version: '2.33.0', ext: 'pom'
+    testImplementation group: 'io.qameta.allure', name: 'allure-assertj', version: '2.29.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.29.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.29.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-selenide', version: '2.29.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: '2.29.1'
+    testImplementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.23'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.11.0'
+    testImplementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.29.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '7.21.1'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task testSuite() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:target/cucumber-report.html',
+                    '--plugin', 'io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm',
+                    '--glue', 'testSteps',
+                    'src/test/resources/features',
+                    '--tags', '@Luminor',
+                    //'--threads', Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+            ]
+        }
+    }
+}
+
+test {
+    useTestNG()
+}
