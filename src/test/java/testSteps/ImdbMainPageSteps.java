@@ -2,6 +2,7 @@ package testSteps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.NoSuchElementException;
 import pages.ImdbMainPage;
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
@@ -16,10 +17,10 @@ public class ImdbMainPageSteps {
 
     @When("I accept cookie banner")
     public void acceptCookieBanner() {
-        if(imdbMainPage.cookieBanner().isDisplayed()) {
+        if(imdbMainPage.cookieBanner().shouldBe(visible, exist).isDisplayed()) {
             imdbMainPage.cookieBannerAcceptButton().shouldBe(visible).click();
         } else {
-            System.out.println("Cookie banner is not visible on main page");
+            throw new NoSuchElementException("Cookie banner is not visible on main page");
         }
     }
 
