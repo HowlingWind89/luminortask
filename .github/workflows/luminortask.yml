@@ -16,9 +16,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
@@ -40,14 +40,14 @@ jobs:
 
       - name: Add allure report
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Allure reports Luminor
           path: build/reports/allure-report/allureReport
 
       - name: Add cucumber report
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Cucumber reports Luminor
           path: target/cucumber-report.html
