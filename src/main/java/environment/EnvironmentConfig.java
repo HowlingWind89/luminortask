@@ -12,8 +12,14 @@ public class EnvironmentConfig {
         System.setProperty("selenide.browser", "Chrome");
 
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        //Configuration.headless = false;
         Configuration.timeout = 10000;
+
+        String ciEnv = System.getenv("CI");
+        Configuration.headless = "true".equalsIgnoreCase(ciEnv);
+
+        System.out.println("[Browser mode] Headless = " + Configuration.headless);
+
         open(WebURL.IMDB);
     }
 

@@ -27,16 +27,16 @@ jobs:
 
       - name: Gradle clean
         run: |
-          gradle clean
+          ./gradlew clean
 
       - name: TestSuite execution
         run: |
-          gradle testSuite
+          ./gradlew testSuite
 
       - name: Generate allure reports
         if: success() || failure()
         run: |
-          gradle allureReport
+          ./gradlew allureReport
 
       - name: Add allure report
         if: success() || failure()
