@@ -61,4 +61,10 @@ task testSuite() {
 
 test {
     useTestNG()
+    filter {
+        includeTestsMatching "runner.TestRunner"
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
