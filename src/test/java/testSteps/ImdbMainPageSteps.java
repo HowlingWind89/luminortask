@@ -17,10 +17,10 @@ public class ImdbMainPageSteps {
 
     @When("I accept cookie banner")
     public void acceptCookieBanner() {
-        if(imdbMainPage.cookieBanner().shouldBe(visible, exist).isDisplayed()) {
-            imdbMainPage.cookieBannerAcceptButton().shouldBe(visible).click();
-        } else {
+        if(!imdbMainPage.cookieBanner().shouldBe(visible, exist).isDisplayed()) {
             System.out.println("Cookie banner is not visible on main page");
+        } else {
+            imdbMainPage.cookieBannerAcceptButton().shouldBe(visible).click();
         }
     }
 
