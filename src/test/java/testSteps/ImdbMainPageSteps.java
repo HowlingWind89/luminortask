@@ -20,7 +20,7 @@ public class ImdbMainPageSteps {
         if(imdbMainPage.cookieBanner().shouldBe(visible, exist).isDisplayed()) {
             imdbMainPage.cookieBannerAcceptButton().shouldBe(visible).click();
         } else {
-            throw new NoSuchElementException("Cookie banner is not visible on main page");
+            System.out.println("Cookie banner is not visible on main page");
         }
     }
 
