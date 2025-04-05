@@ -26,7 +26,7 @@ public class ImdbMainPageSteps {
 
     @And("I enter {} in to search field")
     public void typeInSearchField(String searchText) {
-        imdbMainPage.searchBar().shouldBe(exist).setValue(searchText);
+        imdbMainPage.searchBar().shouldBe(visible).setValue(searchText);
     }
 
     @And("I click on the first movie in the list")
