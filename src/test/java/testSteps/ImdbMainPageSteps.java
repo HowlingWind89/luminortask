@@ -3,6 +3,8 @@ package testSteps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import pages.ImdbMainPage;
+
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
 
 public class ImdbMainPageSteps {
@@ -24,7 +26,7 @@ public class ImdbMainPageSteps {
 
     @And("I enter {} in to search field")
     public void typeInSearchField(String searchText) {
-        imdbMainPage.searchBar().shouldBe(visible).setValue(searchText);
+        imdbMainPage.searchBar().shouldBe(exist).setValue(searchText);
     }
 
     @And("I click on the first movie in the list")
