@@ -1,14 +1,10 @@
 package testSteps;
 
 import io.cucumber.java.en.And;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pages.MoviePage;
 
-import java.util.List;
-
 import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
 
 public class MoviePageSteps {
 

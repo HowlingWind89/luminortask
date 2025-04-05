@@ -2,7 +2,6 @@ package testSteps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.NoSuchElementException;
 import pages.ImdbMainPage;
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
